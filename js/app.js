@@ -1,8 +1,5 @@
 'use strict'
 
-var icons = ["fa-moon-o", "fa-bicycle", "fa-space-shuttle", "fa-usb",
-  "fa-user-md", "fa-superpowers", "fa-university", "fa-sign-language"
-];
 
 var Table = function(rows, cells) {
   this.rows = rows;
@@ -73,6 +70,36 @@ var Card = function(icon) {
   return divCard;
 }
 
+function shuffle(table) {
+
+  let rows = table.cells;
+
+  for (var i = 0; i < rows.length; i++) {
+    for (var j = 0; j < 4; j++) {
+
+    }
+  }
+
+
+}
+
+
+
+
+
+
+function createCards() {
+  let cards = new Array();
+  let icons = ["fa-moon-o", "fa-bicycle", "fa-space-shuttle", "fa-usb",
+    "fa-user-md", "fa-superpowers", "fa-university", "fa-sign-language"
+  ];
+
+  for (var i = 0; i < icons.length; i++) {
+    let card = new Card(icons[i]);
+    cards.push(card);
+  }
+  return cards;
+}
 
 
 var table = new Table(4, 4).build();
