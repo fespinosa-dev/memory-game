@@ -4,46 +4,38 @@ body {
 
 .wrapper {
   width: 800px;
-  margin: 0 auto;
-}
-
-h1 {
-  font-family: "Audiowide", cursive;
+  margin: auto;
 }
 
 .grid {
-  margin-left: auto;
-  margin-right: auto;
-  border-radius: 10px;
-  border-spacing: 20px;
+  width: 520px;
+  margin: inherit;
+  padding: 8px;
   background: linear-gradient(140deg, #49e9cc, #892a89);
   box-shadow: 8px 8px 20px 1px #030303;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
-.cell {
+.card {
   width: 120px;
   height: 120px;
-  padding: 0;
-  background-color: black;
+  margin: 5px;
   border-radius: 10px;
-  box-shadow: 0px 0px 2px 0px #49e9cc;
+  display: inline-block;
 }
 
-.card,
-.card .front,
-.card .back {
-  width: 100%;
-  height: 100%;
+.front, .back {
   border-radius: 10px;
 }
 
-.card
 .back {
-  border: 1px solid #49e9cc;
   background-color: #49e9cc;
 }
 
-.card.back {}
+.front {
+  background-color: black;
+}
 
 .fa {
   font-size: 40px;

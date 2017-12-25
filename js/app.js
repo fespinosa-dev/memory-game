@@ -1,107 +1,113 @@
 'use strict'
 
-
-var Table = function(rows, cells) {
-  this.rows = rows;
-  this.cells = cells;
-
-
-  this.build = function() {
-    let table = document.querySelector(".grid");
-    for (var i = 0; i < this.rows; i++) {
-      var row = new Row();
-      for (var j = 0; j < this.cells; j++) {
-        var cell = new Cell();
-        row.appendChild(cell);
-      }
-      table.appendChild(row);
-    }
-    return table;
-  }
-
-
-};
-
-
-
-
-var Row = function() {
-  let tr = document.createElement("tr");
-  tr.setAttribute("class", "row");
-
-
-  return tr;
-};
-
-var Cell = function() {
-  let td = document.createElement("td");
-  td.setAttribute("class", "cell");
-
-  return td;
-};
-
-
-
-
-var Card = function(icon) {
-  this.icon = icon;
-
+var Card = function(id, icon) {
+  let card = document.createElement("div");
+  card.icon = icon;
+  card.id = "card-" + id;
+  card.setAttribute("class", "card");
+  let front = document.createElement("div");
+  front.setAttribute("class", "front");
   let iconTag = document.createElement("i");
-  iconTag.setAttribute("class", "fa fa-3x " + this.icon);
-  let divCard = document.createElement("div");
-  divCard.setAttribute("class", "card");
-  divCard.setAttribute("id", "card");
-  divCard.appendChild(iconTag);
-  let divFrontCard = document.createElement("div");
-  divFrontCard.setAttribute("class", "back");
-  divFrontCard.appendChild(iconTag);
-  let divBackCard = document.createElement("div");
-  divBackCard.setAttribute("class", "front");
-  divCard.appendChild(divFrontCard);
-  divCard.appendChild(divBackCard);
+  iconTag.setAttribute("class", "fa fa-3x " + icon);
+  let back = document.createElement("div");
+  back.appendChild(iconTag);
+  back.setAttribute("class", "back");
+  card.appendChild(front);
+  card.appendChild(back);
+
+  card.isFlipped = function() {
+    return card.classList.contains("flipped");
+  };
 
 
-  $(divCard).flip({
-    trigger: 'click'
-  });
+  let onClickEventHanlder = function(event) {
 
+  };
 
-
-  return divCard;
-}
-
-function shuffle(table) {
-
-  let rows = table.cells;
-
-  for (var i = 0; i < rows.length; i++) {
-    for (var j = 0; j < 4; j++) {
+  let onFlipDoneEventHandler = function(event) {
+    markCardAsFlipped();
+    let currentCard = event.currentTarget;
+    if (checkIfMatch(currentCard)) {
+          
+    }
+    if (!checkIfMatch(currentCard)) {
 
     }
-  }
+  };
 
+  let markCardAsFlipped = function() {
+    let classList = card.classList;
+    classList.contains("flipped") ? classList.remove("flipped") :
+      classList.add("flipped");
+  };
 
-}
+  $(card).flip({
+    trigger: "click"
+  });
+  $(card).click(onClickEventHanlder);
+  $(card).on("flip:done", onFlipDoneEventHandler);
 
+  return card;
+};
 
+let checkIfMatch = function(card) {
+  let matchFound = false;
+  let cards = document.querySelectorAll(".card");
+  cards.forEach(c => {
 
+    if (c.isFlipped() && c.id != card.id && (c.icon === card.icon)) {
+      matchFound = true;
+    }
+  });
+  return matchFound;
+};
 
-
-
-function createCards() {
-  let cards = new Array();
-  let icons = ["fa-moon-o", "fa-bicycle", "fa-space-shuttle", "fa-usb",
+let createCards = function() {
+  let cards = [];
+  const icons = ["fa-moon-o", "fa-bicycle", "fa-space-shuttle", "fa-usb",
     "fa-user-md", "fa-superpowers", "fa-university", "fa-sign-language"
   ];
 
-  for (var i = 0; i < icons.length; i++) {
-    let card = new Card(icons[i]);
-    cards.push(card);
+  let cardId = 1;
+  for (var i = 0; i < 2; i++) {
+    for (var j = 0; j < 8; j++) {
+      let card = new Card(cardId++, icons[j]);
+      cards.push(card);
+    }
   }
   return cards;
 }
 
 
-var table = new Table(4, 4).build();
-var body = document.querySelector("body");
-body.appendChild(table);
+function shuffle(cards) {
+  var i = 0,
+    j = 0,
+    temp = null
+
+  for (i = cards.length - 1; i > 0; i -= 1) {
+    j = Math.floor(Math.random() * (i + 1))
+    temp = cards[i]
+    cards[i] = cards[j]
+    cards[j] = temp
+  }
+
+};
+
+function fillGridWithCards(cards) {
+  let grid = document.querySelector(".grid");
+  for (var i = 0; i < 16; i++) {
+    grid.appendChild(cards[i]);
+  }
+}
+
+let cards = createCards();
+fillGridWithCards(cards);
+
+document.querySelector("button[name=shuffle]").addEventListener("click", function() {
+  let grid = document.querySelector(".grid");
+  grid.innerHTML = "";
+  shuffle(cards);
+  fillGridWithCards(cards);
+
+
+});
