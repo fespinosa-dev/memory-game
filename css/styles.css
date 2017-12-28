@@ -2,6 +2,10 @@ body {
   text-align: center;
 }
 
+h1{
+  font-family: "Cabin Sketch", cursive;
+}
+
 .wrapper {
   width: 800px;
   margin: auto;
@@ -25,6 +29,8 @@ body {
   display: inline-block;
 }
 
+
+
 .front, .back {
   border-radius: 10px;
 }
@@ -33,12 +39,23 @@ body {
   background-color: #49e9cc;
 }
 
+.mismatch   {
+  background-color: red;
+}
+
 .front {
   background-color: black;
 }
 
-.fa {
-  font-size: 40px;
+.card-icon {
   color: white;
-  margin: 30px;
+  margin: 36px;
+}
+
+.repeat{
+  margin-left: 32%;
+}
+
+.rating{
+  display: inline-block;;
 }

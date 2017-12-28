@@ -5,8 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Cabin+Sketch" rel="stylesheet">
   <link rel="stylesheet" href="css/vendor/normalize.css" media="screen">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
   <link rel="stylesheet" href="css/styles.css" media="screen">
   <title>Memory Game</title>
 </head>
@@ -15,15 +16,23 @@
 
   <div class="wrapper">
     <h1>Matching Game</h1>
-    <button type="button" name="shuffle">shuffle</button>
+  <div>
+    <ul class="rating">
+      <i class="fa fa-star-o" aria-hidden="true"></i>
+      <i class="fa fa-star-o" aria-hidden="true"></i>
+      <i class="fa fa-star-o" aria-hidden="true"></i>
+      <i>17 moves</i>
+    </ul>
+  <i class="fa fa-repeat repeat"></i>
+  </div>
     <div class="grid">
 
     </div>
   </div>
-
+  <script src="https://use.fontawesome.com/10f858674e.js"></script>
   <script src="js/vendor/jquery-3.2.1.min.js" charset="utf-8"></script>
   <script src="js/vendor/jquery.flip.min.js" charset="utf-8"></script>
-  <script src="https://use.fontawesome.com/10f858674e.js"></script>
+  <script src="js/vendor/animate.js" charset="utf-8"></script>
   <script src="js/app.js" charset="utf-8"></script>
 </body>
 
