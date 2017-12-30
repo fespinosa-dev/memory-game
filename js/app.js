@@ -104,8 +104,7 @@ let Grid = function() {
         displayNumberOfMoves();
 
         if (checkIfAllMatched()) {
-          let winningPanel = document.querySelector(".winning-panel");
-          winningPanel.style.display = "block";
+          showWinningPanel(true);
         }
 
       } else {
@@ -240,10 +239,29 @@ let createCards = function() {
   return cards;
 };
 
+
+/**
+ * @description displays or closes the winning panel.
+ * @param {boolean} value - true or false
+ */
+showWinningPanel(value) {
+  let display = "none";
+  if (value) {
+    display = true;
+  }
+  let winningPanel = document.querySelector(".repeat-btn");
+  winningPanel.style.display: display;
+};
+
 var grid = new Grid();
 var cards = createCards();
 grid.fillWithCards(cards);
 
 document.querySelector(".repeat-btn").addEventListener("click", function() {
   grid.reset();
+});
+
+document.querySelector(".play-again-btn").addEventListener("click", function() {
+  grid.reset();
+  showWinningPanel(false);
 });
