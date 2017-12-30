@@ -59,7 +59,7 @@ h1 {
 }
 
 .winning-panel {
-  display: none;
+  display: block;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -75,4 +75,14 @@ h1 {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.winning-content .play-again-btn {
+  background-color: #1aab91;
+  color: white;
+  font-weight: bold;
+  border: none;
+  width: 125px;
+  height: 50px;
+  cursor: pointer;
 }
