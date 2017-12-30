@@ -244,13 +244,13 @@ let createCards = function() {
  * @description displays or closes the winning panel.
  * @param {boolean} value - true or false
  */
-showWinningPanel(value) {
-  let display = "none";
+let showWinningPanel = function(value) {
+  var display = "none";
   if (value) {
-    display = true;
+    display = "block";
   }
-  let winningPanel = document.querySelector(".repeat-btn");
-  winningPanel.style.display: display;
+  let winningPanel = document.querySelector(".winning-panel");
+  winningPanel.style.display = display;
 };
 
 var grid = new Grid();
