@@ -68,27 +68,26 @@ let Grid = function() {
    * @description
    * Animates a given array of cards and passes the cards to a callback function.
    * @param {Object} options
-   * @param {String} options.type [type = rubberBand] - An animation's type.
+   * @param {String} options.type - An animation's type.
    * @param {function(object[]):void} options.afterDone - Callback function.
    * @param {Object[]} cards - the cards given to animate.
    */
   let animate = function(options, cards) {
     let type = options["type"];
     let afterDone = options["afterDone"]
-    if (!type) {
-        type = "rubberBand";
-        $(cards).animateCss(type);
-    }
     if (type && afterDone) {
       $(cards).animateCss(type, afterDone.bind(null, cards));
     }
+    if (type) {
+      $(cards).animateCss(type);
+    }
   };
 
-   /**
+  /**
    * @description Event handler for handling user click|flip events.
    * @param {Object} event - the event.
    */
-   let clickEventHandler = function(event){
+  let clickEventHandler = function(event) {
     let currentFlippedCard = event.target.parentElement;
     if (isNotCard(currentFlippedCard) || currentFlippedCard.matches(".matched")) {
       return;
@@ -99,12 +98,16 @@ let Grid = function() {
       let cardsMatched = checkMatch(currentFlippedCard, previewsFlippedCard);
       if (cardsMatched) {
         $([previewsFlippedCard, currentFlippedCard]).addClass("matched");
-
         animate({
           type: "rubberBand"
         }, [currentFlippedCard, previewsFlippedCard]);
-
         displayNumberOfMoves();
+
+        if (checkIfAllMatched()) {
+          let winningPanel = document.querySelector(".winning-panel");
+          winningPanel.style.display = "block";
+        }
+
       } else {
         $([previewsFlippedCard.back, currentFlippedCard.back]).addClass("mismatch");
 
