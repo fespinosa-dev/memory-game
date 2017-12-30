@@ -2,7 +2,7 @@ body {
   text-align: center;
 }
 
-h1{
+h1 {
   font-family: "Cabin Sketch", cursive;
 }
 
@@ -29,8 +29,6 @@ h1{
   display: inline-block;
 }
 
-
-
 .front, .back {
   border-radius: 10px;
 }
@@ -39,7 +37,7 @@ h1{
   background-color: #49e9cc;
 }
 
-.mismatch   {
+.mismatch {
   background-color: red;
 }
 
@@ -52,23 +50,29 @@ h1{
   margin: 36px;
 }
 
-.repeat-btn{
-  margin-left: 32%;
+.score-panel .starts {
+  display: inline-block;
 }
 
-.rating{
-  display: inline-block;;
+.score-panel .repeat-btn {
+  margin-left: 36%;
 }
 
-.modal {
-    display: block; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: auto; /* Enable scroll if needed */
-    background-color: white;
-    /*background-color: gb(255, 255  , 255); /* Black w/ opacity */*/
+.winning-panel {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: white;
+}
+
+.winning-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

@@ -1,4 +1,9 @@
 'use strict'
+
+/**
+ * @description
+ * Represents the main Grid
+ */
 let Grid = function() {
   var numberOfMoves = 0;
   var numberOfClicks = 0;
@@ -7,19 +12,31 @@ let Grid = function() {
   let grid = document.querySelector(".grid");
   this.cards = [];
 
+  /**
+   * @description
+   * fills the main grid with given cards and internally stores them.
+   * @param {array} cards
+   */
   grid.fillWithCards = function(cards) {
     for (var i = 0; i < 16; i++) {
       grid.appendChild(cards[i]);
     }
     this.cards = cards;
   };
-
+  /**
+   * @description
+   * clears the grid by emptying it's content (cards)
+   */
   grid.clear = function() {
     grid.innerHTML = "";
   };
 
+  /**
+   * @description
+   * shuffles the cards in the grid using the fisher yates algorithm.
+   */
   grid.shuffle = function() {
-    this.clear();
+    grid.clear();
     var i = 0,
       j = 0,
       temp = null
@@ -29,42 +46,55 @@ let Grid = function() {
       this.cards[i] = this.cards[j]
       this.cards[j] = temp
     }
-    this.fillWithCards(this.cards);
+    grid.fillWithCards(cards);
   };
 
+  /**
+   * @description Resets the grid to start playing again.
+   */
   grid.reset = function() {
-    grid.clear();
+    resetCards(this.cards);
     grid.shuffle();
-    grid.fillWithCards(this.cards);
+    numberOfClicks = 0;
+    numberOfMoves = 0;
   };
 
-  grid.flipAll = function() {
-    for (var i = 0; i < this.cards.length; i++) {
-      resetCards(this.cards[i]);
-    }
-  };
-
-  let animate = function(options, ...cards) {
+  /**
+   * Callback to run when the animation is done.
+   * @callback afterDone
+   * @param {Object[]} cards - the cards used to animate.
+   */
+  /**
+   * @description
+   * Animates a given array of cards and passes the cards to a callback function.
+   * @param {Object} options
+   * @param {String} options.type [type = rubberBand] - An animation's type.
+   * @param {function(object[]):void} options.afterDone - Callback function.
+   * @param {Object[]} cards - the cards given to animate.
+   */
+  let animate = function(options, cards) {
     let type = options["type"];
     let afterDone = options["afterDone"]
+    if (!type) {
+        type = "rubberBand";
+        $(cards).animateCss(type);
+    }
     if (type && afterDone) {
       $(cards).animateCss(type, afterDone.bind(null, cards));
-    } else {
-      $(cards).animateCss(type);
     }
   };
 
-  $(grid).click(function(event) {
+   /**
+   * @description Event handler for handling user click|flip events.
+   * @param {Object} event - the event.
+   */
+   let clickEventHandler = function(event){
     let currentFlippedCard = event.target.parentElement;
-    if (isNotCard(currentFlippedCard)) {
-      return;
-    }
-    if (currentFlippedCard.matches(".matched")) {
+    if (isNotCard(currentFlippedCard) || currentFlippedCard.matches(".matched")) {
       return;
     }
 
     numberOfClicks++;
-
     if (numberOfClicks > 1) {
       let cardsMatched = checkMatch(currentFlippedCard, previewsFlippedCard);
       if (cardsMatched) {
@@ -72,7 +102,7 @@ let Grid = function() {
 
         animate({
           type: "rubberBand"
-        }, currentFlippedCard, previewsFlippedCard);
+        }, [currentFlippedCard, previewsFlippedCard]);
 
         displayNumberOfMoves();
       } else {
@@ -81,52 +111,75 @@ let Grid = function() {
         animate({
           type: "wobble",
           afterDone: resetCards
-        }, previewsFlippedCard, currentFlippedCard);
+        }, [previewsFlippedCard, currentFlippedCard]);
         displayNumberOfMoves();
       }
       numberOfClicks = 0;
     }
-    previewsFlippedCard = currentFlippedCard; //save for the second flip
-  });
+    previewsFlippedCard = currentFlippedCard; // tmp to use for the next click
+  };
 
+  /**
+   * @description increments the number of moves and displays them on the score panel.
+   */
   let displayNumberOfMoves = function() {
     numberOfMoves++;
     document.querySelector(".moves").innerHTML = `${numberOfMoves} moves`;
   };
 
-  let addClass = function(marker, ...cards) {
-    $(cards).addClass(marker);
-  };
-
+  /**
+   * @description increments the number of moves and displays them on the score panel.
+   * @param {object} element - the element to check against.
+   * @returns {boolean} true or false.
+   */
   let isNotCard = function(element) {
     return (element && !element.matches(".card"));
   };
 
+  /**
+   * @description reset a given array of cards to their inital states.
+   * @param {object[]} cards - the given cards.
+   */
   let resetCards = function(cards) {
-    $(".back").removeClass("mismatch");
+    $(cards).children(".back").removeClass("mismatch");
     $(cards).flip(false);
     $(cards).one("click", function() {
       $(this).flip(true);
     });
   };
 
-  let checkMatche = function(currentCard, previewsCard) {
+  /**
+   * @description checks two cards to see whether they match or not.
+   * @param {Object} card1 - the first card to be compared.
+   * @param {Object}  - the second card to be compared.
+   */
+  let checkMatch = function(card1, card2) {
     let cardsMatched = false;
-    if (currentCard.icon === previewsCard.icon) {
+    if (card1.icon === card2.icon) {
       cardsMatched = true;
     }
     return cardsMatched;
   };
 
 
-  let checkIfAllMatched = function () {
+  /**
+   * @description checks if all the cards are already matched.
+   * @returns {boolean} - true or false
+   */
+  let checkIfAllMatched = function() {
     let matches = $(".matched").length;
     return matches === 16;
   };
 
+
+  $(grid).click(clickEventHandler);
   return grid;
 };
 
+/**
+ * @description
+ * Represents a deck card.
+ */
 let Card = function(id, icon) {
   let card = document.createElement("div");
   card.icon = icon;
@@ -146,9 +199,14 @@ let Card = function(id, icon) {
   card.appendChild(front);
   card.appendChild(back);
 
+  /**
+   * @description checks whether the card is already flipped or not.
+   * @returns {boolean}  true or false.
+   */
   card.isFlipped = function() {
     return $(card).data("flip-model").isFlipped;
   };
+
 
   $(card).flip({
     trigger: "manual",
@@ -162,7 +220,10 @@ let Card = function(id, icon) {
   return card;
 };
 
-
+/**
+ * @description cretes an array of cards.
+ * @returns {Object[]} cards - the array of cards
+ */
 let createCards = function() {
   let cards = [];
   const icons = ["fa-moon-o", "fa-bicycle", "fa-space-shuttle", "fa-usb", "fa-user-md", "fa-superpowers", "fa-university", "fa-sign-language"];
@@ -179,9 +240,7 @@ let createCards = function() {
 var grid = new Grid();
 var cards = createCards();
 grid.fillWithCards(cards);
+
 document.querySelector(".repeat-btn").addEventListener("click", function() {
-
   grid.reset();
-
-
 });
