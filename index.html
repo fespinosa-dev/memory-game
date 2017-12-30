@@ -16,18 +16,30 @@
 
   <div class="wrapper">
     <h1>Matching Game</h1>
-  <div>
-    <ul class="rating">
-      <i class="fa fa-star-o" aria-hidden="true"></i>
-      <i class="fa fa-star-o" aria-hidden="true"></i>
-      <i class="fa fa-star-o" aria-hidden="true"></i>
-      <i>17 moves</i>
-    </ul>
-  <i class="fa fa-repeat repeat"></i>
-  </div>
+    <div>
+      <ul class="rating">
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+        <i class="fa fa-star-o" aria-hidden="true"></i>
+        <i class="moves">0 moves</i>
+      </ul>
+      <a class="btn repeat-btn" href="#"><i class="fa fa-repeat "></i></a>
+    </div>
     <div class="grid">
 
     </div>
+  </div>
+  <div class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h1>Congratulations! You Won!</h1>
+      <p>With 17 moves and 1 Starts</p>
+      <p>Woooooo!</p>
+      <button type="button" name="play-again">Play again!</button>
+    </div>
+
   </div>
   <script src="https://use.fontawesome.com/10f858674e.js"></script>
   <script src="js/vendor/jquery-3.2.1.min.js" charset="utf-8"></script>

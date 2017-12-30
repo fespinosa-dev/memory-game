@@ -32,6 +32,18 @@ let Grid = function() {
     this.fillWithCards(this.cards);
   };
 
+  grid.reset = function() {
+    grid.clear();
+    grid.shuffle();
+    grid.fillWithCards(this.cards);
+  };
+
+  grid.flipAll = function() {
+    for (var i = 0; i < this.cards.length; i++) {
+      resetCards(this.cards[i]);
+    }
+  };
+
   let animate = function(options, ...cards) {
     let type = options["type"];
     let afterDone = options["afterDone"]
@@ -47,14 +59,14 @@ let Grid = function() {
     if (isNotCard(currentFlippedCard)) {
       return;
     }
-    if(currentFlippedCard.matches(".matched")){
+    if (currentFlippedCard.matches(".matched")) {
       return;
     }
 
     numberOfClicks++;
-    numberOfMoves++;
+
     if (numberOfClicks > 1) {
-      let cardsMatched = checkIfMatch(currentFlippedCard, previewsFlippedCard);
+      let cardsMatched = checkMatch(currentFlippedCard, previewsFlippedCard);
       if (cardsMatched) {
         $([previewsFlippedCard, currentFlippedCard]).addClass("matched");
 
@@ -62,6 +74,7 @@ let Grid = function() {
           type: "rubberBand"
         }, currentFlippedCard, previewsFlippedCard);
 
+        displayNumberOfMoves();
       } else {
         $([previewsFlippedCard.back, currentFlippedCard.back]).addClass("mismatch");
 
@@ -69,11 +82,17 @@ let Grid = function() {
           type: "wobble",
           afterDone: resetCards
         }, previewsFlippedCard, currentFlippedCard);
+        displayNumberOfMoves();
       }
       numberOfClicks = 0;
     }
     previewsFlippedCard = currentFlippedCard; //save for the second flip
   });
+
+  let displayNumberOfMoves = function() {
+    numberOfMoves++;
+    document.querySelector(".moves").innerHTML = `${numberOfMoves} moves`;
+  };
 
   let addClass = function(marker, ...cards) {
     $(cards).addClass(marker);
@@ -84,14 +103,14 @@ let Grid = function() {
   };
 
   let resetCards = function(cards) {
-    $([cards[0].back, cards[1].back]).removeClass("mismatch");
+    $(".back").removeClass("mismatch");
     $(cards).flip(false);
-    $(cards).one("click", function (){
+    $(cards).one("click", function() {
       $(this).flip(true);
     });
   };
 
-  let checkIfMatch = function(currentCard, previewsCard) {
+  let checkMatche = function(currentCard, previewsCard) {
     let cardsMatched = false;
     if (currentCard.icon === previewsCard.icon) {
       cardsMatched = true;
@@ -99,6 +118,11 @@ let Grid = function() {
     return cardsMatched;
   };
 
+
+  let checkIfAllMatched = function () {
+    let matches = $(".matched").length;
+    return matches === 16;
+  };
 
   return grid;
 };
@@ -131,12 +155,13 @@ let Card = function(id, icon) {
     speed: 100
   });
 
-  $(card).one("click", function (){
+  $(card).one("click", function() {
     $(this).flip(true);
   });
 
   return card;
 };
+
 
 let createCards = function() {
   let cards = [];
@@ -154,8 +179,9 @@ let createCards = function() {
 var grid = new Grid();
 var cards = createCards();
 grid.fillWithCards(cards);
-document.querySelector(".fa-repeat").addEventListener("click", function() {
-  grid.shuffle();
+document.querySelector(".repeat-btn").addEventListener("click", function() {
+
+  grid.reset();
 
 
 });
