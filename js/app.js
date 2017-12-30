@@ -144,6 +144,7 @@ let Grid = function() {
    */
   let resetCards = function(cards) {
     $(cards).children(".back").removeClass("mismatch");
+    $(cards).removeClass("matched");
     $(cards).flip(false);
     $(cards).one("click", function() {
       $(this).flip(true);
