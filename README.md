@@ -15,3 +15,8 @@ Open the index.html file in the browser.
 
 Playing is very simple - you turn over one card and then try to find a matching card. 
 When you click on the first card of a turn and have exposed a corresponding card in a previous turn, a fun animation tells you that the pair is known(matched).To winn you will have to find all the matching cards.
+
+## Score
+
+Whenever you make a succesfully match 2 times your rating will increase one start. 
+The same goes when you fail matching, your rating will decrease one start.
