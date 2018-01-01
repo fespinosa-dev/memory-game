@@ -57,8 +57,16 @@ let Grid = function() {
     resetCards(this.cards);
     grid.shuffle();
     numberOfClicks = 0;
-    displayNumberOfMoves(0);
+    resetScorePanel();
   };
+
+  /**
+   * @description Resets the score panel.
+   */
+  let resetScorePanel = function() {
+    displayNumberOfMoves(0);
+    $(".fa-star-o").removeClass("fa-star-o").addClass("fa-star");
+  }
 
   /**
    * Callback to run when the animation is done.
