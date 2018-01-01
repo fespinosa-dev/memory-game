@@ -117,6 +117,10 @@ let Grid = function() {
       numberOfClicks = 0;
       numberOfMoves++;
       displayNumberOfMoves(numberOfMoves);
+
+      if(numberOfMoves === 4 || numberOfMoves > 7){
+          decreaseStartRating();
+      }
     }
     previewsFlippedCard = currentFlippedCard; // tmp to use for the next click
   };
@@ -127,6 +131,17 @@ let Grid = function() {
    */
   let displayNumberOfMoves = function(numberOfMoves) {
     document.querySelector(".moves").innerHTML = `${numberOfMoves} moves`;
+  };
+
+
+  /**
+   * @description decrease one start.
+   */
+  let decreaseStartRating = function() {
+    $(".starts")
+      .children(".fa-star")
+      .last().removeClass("fa-star")
+      .addClass("fa-star-o");
   };
 
   /**
