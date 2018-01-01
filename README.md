@@ -25,6 +25,6 @@ Animate CSS by Daniel Eden [daneden.github.io/animate.css](https://daneden.githu
 Playing is very simple - you turn over one card and then try to find a matching card.
 When you click on the first card of a turn and have exposed a corresponding card in a previous turn, a fun animation tells you that the pair is known(matched).To win you will have to find all the matching cards.
 
-## Start Rating
+## Star Rating
 
-The game displays a star rating (from 1-3) that reflects your performance. At the beginning of a game, you'll have 3 stars. After a certain numbers of  moves, it will decrease the start rating.
+The game displays a star rating (from 1-3) that reflects your performance. At the beginning of a game, you'll have 3 stars. After a certain numbers of  moves, it will decrease the star rating.

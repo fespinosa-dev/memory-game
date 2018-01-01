@@ -8,6 +8,7 @@ let Grid = function() {
   var numberOfMoves = 0;
   var numberOfClicks = 0;
   var previewsFlippedCard = {};
+  let remainingStars = 3;
 
   let grid = document.querySelector(".grid");
   this.cards = [];
@@ -103,7 +104,7 @@ let Grid = function() {
         }, [currentFlippedCard, previewsFlippedCard]);
 
         if (checkIfAllMatched()) {
-          showWinningPanel(true);
+          showWinningPanel(numberOfMoves, remainingStars);
         }
 
       } else {
@@ -118,8 +119,9 @@ let Grid = function() {
       numberOfMoves++;
       displayNumberOfMoves(numberOfMoves);
 
-      if(numberOfMoves === 4 || numberOfMoves > 7){
-          decreaseStartRating();
+      if (numberOfMoves === 4 || numberOfMoves > 7) {
+        remainingStars = decreaseStarRating();
+        console.log(remainingStars);
       }
     }
     previewsFlippedCard = currentFlippedCard; // tmp to use for the next click
@@ -135,13 +137,17 @@ let Grid = function() {
 
 
   /**
-   * @description decrease one start.
+   * @description decrease one star.
+   * @return {number} the remaining stars.
    */
-  let decreaseStartRating = function() {
-    $(".starts")
+  let decreaseStarRating = function() {
+    $(".stars")
       .children(".fa-star")
       .last().removeClass("fa-star")
       .addClass("fa-star-o");
+
+    let remainingStars = $(".fa-star").length;
+    return (remainingStars ? remainingStars : 0);
   };
 
   /**
@@ -257,27 +263,34 @@ let createCards = function() {
 
 
 /**
- * @description displays or closes the winning panel.
- * @param {boolean} value - true or false
+ * @description closes the winning panel
  */
-let showWinningPanel = function(value) {
-  var display = "none";
-  if (value) {
-    display = "block";
-  }
+let closeWinningPanel = function() {
+  document.querySelector(".winning-panel").style.display = "none";;
+};
+
+
+/**
+ * @description displays the winning panel showing the number of moves and stars.
+ * @param {number} numberOfMoves - the number of moves to be shown
+ * @param {number} stars - the number of stars to be shown
+ */
+let showWinningPanel = function(numberOfMoves, stars) {
   let winningPanel = document.querySelector(".winning-panel");
-  winningPanel.style.display = display;
+  let scoreDetails = winningPanel.children[0].children[1];
+  scoreDetails.innerHTML = `With ${numberOfMoves} moves and ${stars} Stars`;
+  winningPanel.style.display = "block";
 };
 
 var grid = new Grid();
 var cards = createCards();
 grid.fillWithCards(cards);
 
-document.querySelector(".repeat-btn").addEventListener("click", function() {
+$(".repeat-btn").click(function() {
   grid.reset();
 });
 
-document.querySelector(".play-again-btn").addEventListener("click", function() {
+$(".play-again-btn").click(function() {
   grid.reset();
-  showWinningPanel(false);
+  closeWinningPanel();
 });
