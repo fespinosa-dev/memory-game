@@ -56,7 +56,7 @@ let Grid = function() {
     resetCards(this.cards);
     grid.shuffle();
     numberOfClicks = 0;
-    numberOfMoves = 0;
+    displayNumberOfMoves(0);
   };
 
   /**
@@ -101,7 +101,6 @@ let Grid = function() {
         animate({
           type: "rubberBand"
         }, [currentFlippedCard, previewsFlippedCard]);
-        displayNumberOfMoves();
 
         if (checkIfAllMatched()) {
           showWinningPanel(true);
@@ -114,18 +113,19 @@ let Grid = function() {
           type: "wobble",
           afterDone: resetCards
         }, [previewsFlippedCard, currentFlippedCard]);
-        displayNumberOfMoves();
       }
       numberOfClicks = 0;
+      numberOfMoves++;
+      displayNumberOfMoves(numberOfMoves);
     }
     previewsFlippedCard = currentFlippedCard; // tmp to use for the next click
   };
 
   /**
    * @description increments the number of moves and displays them on the score panel.
+   * @param {number} numberOfMoves - the number of moves to be displayed.
    */
-  let displayNumberOfMoves = function() {
-    numberOfMoves++;
+  let displayNumberOfMoves = function(numberOfMoves) {
     document.querySelector(".moves").innerHTML = `${numberOfMoves} moves`;
   };
 
