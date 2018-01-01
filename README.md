@@ -13,13 +13,12 @@ Open the index.html file in the browser.
 
 ### Dependencies
 
-```
-jQuery [a jquery.com](https://jquery.com)
 
-jQuery/flip plugin by Nattawat Nonsung - [a jQuery Flip](http://nnattawat.github.io/flip/)
+jQuery [jquery.com](https://jquery.com)
 
-Animate CSS by Daniel Eden [a animate.css](https://daneden.github.io/animate.css/)
-```
+jQuery/flip plugin by Nattawat Nonsung - [nnattawat.github.io/flip](http://nnattawat.github.io/flip/)
+
+Animate CSS by Daniel Eden [daneden.github.io/animate.css](https://daneden.github.io/animate.css/)
 
 ## How to play
 
