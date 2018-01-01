@@ -154,7 +154,7 @@ let Grid = function() {
   /**
    * @description checks two cards to see whether they match or not.
    * @param {Object} card1 - the first card to be compared.
-   * @param {Object}  - the second card to be compared.
+   * @param {Object} card2 - the second card to be compared.
    */
   let checkMatch = function(card1, card2) {
     let cardsMatched = false;
