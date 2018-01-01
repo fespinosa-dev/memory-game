@@ -1,5 +1,5 @@
 # Memory Matching Game
-It's a memory game where you need to match pairs of cards.
+A memory game where you need to match pairs of cards.
 
 ## Installation
 
