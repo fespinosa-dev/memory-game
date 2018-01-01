@@ -121,7 +121,6 @@ let Grid = function() {
 
       if (numberOfMoves === 4 || numberOfMoves > 7) {
         remainingStars = decreaseStarRating();
-        console.log(remainingStars);
       }
     }
     previewsFlippedCard = currentFlippedCard; // tmp to use for the next click
