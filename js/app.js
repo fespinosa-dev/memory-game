@@ -1,8 +1,7 @@
 'use strict'
 
 /**
- * @description
- * Represents the main Grid
+ * @description Represents the main Grid
  */
 let Grid = function() {
   var numberOfMoves = 0;
@@ -14,8 +13,7 @@ let Grid = function() {
   this.cards = [];
 
   /**
-   * @description
-   * fills the main grid with given cards and internally stores them.
+   * @description fills the main grid with given cards and internally stores them.
    * @param {array} cards
    */
   grid.fillWithCards = function(cards) {
@@ -25,16 +23,14 @@ let Grid = function() {
     this.cards = cards;
   };
   /**
-   * @description
-   * clears the grid by emptying it's content (cards)
+   * @description clears the grid by emptying it's content (cards)
    */
   grid.clear = function() {
     grid.innerHTML = "";
   };
 
   /**
-   * @description
-   * shuffles the cards in the grid using the fisher yates algorithm.
+   * @description shuffles the cards in the grid using the fisher yates algorithm.
    */
   grid.shuffle = function() {
     grid.clear();
@@ -74,8 +70,7 @@ let Grid = function() {
    * @param {Object[]} cards - the cards used to animate.
    */
   /**
-   * @description
-   * Animates a given array of cards and passes the cards to a callback function.
+   * @description Animates a given array of cards and passes the cards to a callback function.
    * @param {Object} options
    * @param {String} options.type - An animation's type.
    * @param {function(object[]):void} options.afterDone - Callback function.
@@ -144,7 +139,7 @@ let Grid = function() {
 
 
   /**
-   * @description decrease one star.
+   * @description decreases one star.
    * @return {number} the remaining stars.
    */
   let decreaseStarRating = function() {
