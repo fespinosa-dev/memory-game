@@ -59,6 +59,7 @@ let Grid = function() {
    * @description Resets the score panel.
    */
   let resetScorePanel = function() {
+    numberOfMoves = 0;
     displayNumberOfMoves(0);
     $(".fa-star-o").removeClass("fa-star-o").addClass("fa-star");
   };
@@ -105,6 +106,7 @@ let Grid = function() {
           type: "rubberBand"
         }, [currentFlippedCard, previewsFlippedCard]);
         if (checkIfAllMatched()) {
+          timer.stop();
           showWinningPanel(numberOfMoves, remainingStars);
         }
       } else {
@@ -267,11 +269,46 @@ let showWinningPanel = function(numberOfMoves, stars) {
   winningPanel.style.display = "block";
 };
 
+/**
+ * @description Represents a timer object
+ */
+var Timer = function() {
+  var interval;
+
+  /**
+   * @description displays a timer above the score panel of the game.
+   * the function was taken from: https://stackoverflow.com/a/7910506
+   */
+  let show = function() {
+    var sec = 0;
+
+    function pad(val) {
+      return val > 9 ? val : "0" + val;
+    }
+      interval = setInterval(function() {
+        $("#seconds").html(pad(++sec % 60));
+        $("#minutes").html(pad(parseInt(sec / 60, 10)));
+      }, 1000);
+  };
+
+  /**
+   * @description stops the timer.
+   */
+  let stop = function() {
+    clearInterval(interval);
+  };
+
+};
+
+
 var grid = new Grid();
 var cards = createCards();
 grid.fillWithCards(cards);
+
+
 $(".repeat-btn").click(function() {
   grid.reset();
+
 });
 $(".play-again-btn").click(function() {
   grid.reset();

@@ -29,7 +29,8 @@ h1 {
 	display: inline-block;
 }
 
-.front, .back {
+.front,
+.back {
 	border-radius: 10px;
 }
 
