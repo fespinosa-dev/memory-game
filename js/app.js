@@ -273,29 +273,39 @@ let showWinningPanel = function(numberOfMoves, stars) {
  * @description Represents a timer object
  */
 var Timer = function() {
-  var interval;
+  this.interval = {};
 
   /**
    * @description displays a timer above the score panel of the game.
    * the function was taken from: https://stackoverflow.com/a/7910506
    */
-  let show = function() {
+  this.show = function() {
     var sec = 0;
 
-    function pad(val) {
+    function pad(val)  {
       return val > 9 ? val : "0" + val;
     }
-      interval = setInterval(function() {
-        $("#seconds").html(pad(++sec % 60));
-        $("#minutes").html(pad(parseInt(sec / 60, 10)));
-      }, 1000);
+    this.interval = setInterval(function() {
+      $("#seconds").html(pad(++sec % 60));
+      $("#minutes").html(pad(parseInt(sec / 60, 10)));
+    }, 1000);
   };
 
   /**
    * @description stops the timer.
    */
-  let stop = function() {
-    clearInterval(interval);
+  this.stop = function() {
+
+    clearInterval(this.interval);
+  };
+  /**
+   * @description resets the timer.
+   */
+  this.reset = function() {
+    $("#seconds").html("");
+    $("#minutes").html("");
+    clearInterval(this.interval);
+    this.show();
   };
 
 };
@@ -304,13 +314,15 @@ var Timer = function() {
 var grid = new Grid();
 var cards = createCards();
 grid.fillWithCards(cards);
-
+var timer  = new Timer();
+timer.show();
 
 $(".repeat-btn").click(function() {
   grid.reset();
+  timer.reset();
 
 });
 $(".play-again-btn").click(function() {
-  grid.reset();
+  timer.show();
   closeWinningPanel();
 });
