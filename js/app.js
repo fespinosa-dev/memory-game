@@ -7,19 +7,33 @@ let Grid = function() {
 	var numberOfClicks = 0;
 	var previewsFlippedCard = {};
 	let remainingStars = 3;
-	let grid = document.querySelector(".grid");
-	this.cards = [];
+	let grid = document.querySelector(".container");
+	this.cards = cards;
 
 	/**
 	 * @description fills the main grid with given cards and internally stores them.
 	 * @param {array} cards
 	 */
-	grid.fillWithCards = function(cards) {
-		for (var i = 0; i < 16; i++) {
-			grid.appendChild(cards[i]);
-		}
-		this.cards = cards;
-	};
+	grid.fillWithCards = function (cards){
+		let columnClasses = ["three", "six","twelve"]
+		let cardIterator = cards[Symbol.iterator]();
+			for (let rowCount = 0; rowCount < 4; rowCount++) {
+					let row = createRow();
+				for (let columnCount = 0; columnCount < 4; columnCount++) {
+					let column = document.createElement("div");
+					column.setAttribute("class", `${columnClasses} column`)
+					row.appendChild(cardIterator.next().value);
+				}
+
+				grid.appendChild(row);
+			}
+	}
+
+	let createRow = function(){
+		let row = document.createElement("div");
+		row.setAttribute("class", "row");
+		return row;
+	}
 
 	/**
 	 * @description clears the grid by emptying it's content (cards)
@@ -312,11 +326,11 @@ var Timer = function() {
 };
 
 
-var grid = new Grid();
 var cards = createCards();
+var grid = new Grid();
 grid.fillWithCards(cards);
-var timer = new Timer();
-timer.show();
+// var timer = new Timer();
+// timer.show();
 
 $(".repeat-btn").click(function() {
 	grid.reset();
