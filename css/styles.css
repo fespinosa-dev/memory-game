@@ -7,37 +7,21 @@ h1 {
 }
 
 .container{
+	width: 545px;
+	padding:10px;
 	background: linear-gradient(140deg, #49e9cc, #892a89);
 	box-shadow: 8px 8px 20px 1px #030303;
 	border-radius: 10px;
 	cursor: pointer;
 }
 
-/* .wrapper {
-	width: 800px;
-	margin: auto;
-} */
-
-/* .grid {
-	width: 520px;
-	margin: inherit;
-	padding: 8px;
-	background: linear-gradient(140deg, #49e9cc, #892a89);
-	box-shadow: 8px 8px 20px 1px #030303;
-	border-radius: 10px;
-	cursor: pointer;
-} */
-
-
-
-/* .card {
-	width: 100px;
-	height: 68px;
-	margin: 1px;
+.card {
+	width: 120px;
+	height: 120px;
+	margin: 5px;
 	border-radius: 10px;
 	display: inline-block;
-
-} */
+}
 
 .front,
 .back {
@@ -62,29 +46,6 @@ h1 {
 	margin: 1px;
 }
 
-
-@media screen and (min-width: 320px) { 
-
-.card {
-	width: 68px;
-	height: 68px;
-	margin: 1px;
-	border-radius: 10px;
-	display: inline-block;
-}
-
-.card-icon{
-	margin: 8px !important;	
-}
-
-.container{
-	width: 80%;
-    padding: 10px 0 10px 0;
-
-}
-
- }
-
 .score-panel {
 	margin-bottom: 10px;
 }
@@ -98,6 +59,7 @@ h1 {
 .repeat-btn {
 	margin-left: 36%;
 }
+
 
 .winning-panel {
 	display: none;
@@ -128,3 +90,26 @@ h1 {
 	height: 50px;
 	cursor: pointer;
 }
+
+@media screen and (min-width: 320px) and (max-width:414px) { 
+
+.card {
+	width: 62px !important;
+	height: 62px !important;
+	margin: 1px;
+	border-radius: 10px;
+	display: inline-block;
+}
+
+.card-icon{
+	font-size: 28px !important;
+    margin: 15px !important;
+}
+
+.container{
+	width: 276px !important;
+	padding: 10px;
+
+}
+
+ }

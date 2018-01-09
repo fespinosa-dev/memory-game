@@ -27,6 +27,7 @@ let Grid = function() {
 
 				grid.appendChild(row);
 			}
+			this.cards = cards;
 	}
 
 	let createRow = function(){
@@ -219,7 +220,7 @@ let Card = function(id, icon) {
 	front.id = `card-front-${id}`;
 	front.setAttribute("class", "front");
 	let iconTag = document.createElement("i");
-	iconTag.setAttribute("class", "fa fa-3x card-icon " + icon);
+	iconTag.setAttribute("class", "fa fa-4x card-icon " + icon);
 	let back = document.createElement("div");
 	back.appendChild(iconTag);
 	back.setAttribute("class", "back");
