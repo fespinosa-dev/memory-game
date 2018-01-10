@@ -7,8 +7,11 @@ let Grid = function() {
 	var numberOfClicks = 0;
 	var previewsFlippedCard = {};
 	let remainingStars = 3;
+	let timerEnabled = false;
 	let grid = document.querySelector(".container");
 	this.cards = cards;
+	var timer = new Timer();
+	
 
 	/**
 	 * @description fills the main grid with given cards and internally stores them.
@@ -107,14 +110,17 @@ let Grid = function() {
 	 * @param {Object} event - the event.
 	 */
 	let clickEventHandler = function(event) {
-		console.log("Due");
 		let currentFlippedCard = event.target.parentElement;
 		if (isNotCard(currentFlippedCard) || currentFlippedCard.matches(".matched")) {
 			return;
 		}
+		if (!timerEnabled) { 
+			timer.show();
+			timerEnabled = true;
+		}
 		numberOfClicks++;
 		if (numberOfClicks > 1 && !(currentFlippedCard.id === previewsFlippedCard.id)) {
-
+			
 			let cardsMatched = checkMatch(currentFlippedCard, previewsFlippedCard);
 			if (cardsMatched) {
 				$([previewsFlippedCard, currentFlippedCard]).addClass("matched");
@@ -135,7 +141,7 @@ let Grid = function() {
 			numberOfClicks = 0;
 			numberOfMoves++;
 			displayNumberOfMoves(numberOfMoves);
-			if (numberOfMoves === 4 || numberOfMoves > 7) {
+			if (numberOfMoves === 10 || numberOfMoves > 15) {
 				remainingStars = decreaseStarRating();
 			}
 		}
@@ -155,8 +161,10 @@ let Grid = function() {
 	 * @return {number} the remaining stars.
 	 */
 	let decreaseStarRating = function() {
-		$(".stars").children(".fa-star").last().removeClass("fa-star").addClass("fa-star-o");
 		let remainingStars = $(".fa-star").length;
+		if (remainingStars > 1){
+			$(".stars").children(".fa-star").last().removeClass("fa-star").addClass("fa-star-o");
+		}
 		return (remainingStars ? remainingStars : 0);
 	};
 
@@ -293,7 +301,7 @@ var Timer = function() {
 
 	/**
 	 * @description displays a timer above the score panel of the game.
-	 * the function was taken from: https://stackoverflow.com/a/7910506
+	 * from: https://stackoverflow.com/a/7910506
 	 */
 	this.show = function() {
 		var sec = 0;
@@ -330,8 +338,7 @@ var Timer = function() {
 var cards = createCards();
 var grid = new Grid();
 grid.fillWithCards(cards);
-// var timer = new Timer();
-// timer.show();
+
 
 $(".repeat-btn").click(function() {
 	grid.reset();
@@ -340,6 +347,5 @@ $(".repeat-btn").click(function() {
 });
 $(".play-again-btn").click(function() {
 	grid.reset();
-	timer.show();
 	closeWinningPanel();
 });
