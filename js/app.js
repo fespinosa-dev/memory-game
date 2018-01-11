@@ -290,9 +290,14 @@ let closeWinningPanel = function() {
  * @param {number} timeTaken - the timeTaken to win the game.
  */
 let showWinningPanel = function(numberOfMoves, stars, timeTaken) {
-	let winningPanel = document.querySelector(".winning-panel");
-	let scoreDetails = winningPanel.children[0].children[1];
-	scoreDetails.innerHTML = `With ${numberOfMoves} moves and ${stars} stars in ${timeTaken}`;
+	let seconds, minutes, winningPanel, rating, timeTakenTag;
+	minutes = timeTaken.split(":")[0];
+	seconds = timeTaken.split(":")[1];
+	winningPanel = document.querySelector(".winning-panel");
+	rating = winningPanel.children[0].children[1];
+	timeTakenTag = winningPanel.children[0].children[2];
+	rating.innerHTML = `With ${numberOfMoves} moves and ${stars} stars in ${timeTaken}`;
+	timeTakenTag.innerHTML = `In ${minutes} minutes with ${seconds} seconds!`;
 	winningPanel.style.display = "block";
 };
 
