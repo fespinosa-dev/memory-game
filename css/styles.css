@@ -1,5 +1,6 @@
-body {
+body, html {
 	text-align: center;
+
 }
 
 h1 {
@@ -7,12 +8,13 @@ h1 {
 }
 
 .wrapper{
-	width: 545px;
+	width: 580px;
 	margin: auto;
+
 }
 
 .container{
-	width: 545px;
+	width: inherit;
 	padding:10px;
 	background: linear-gradient(140deg, #49e9cc, #892a89);
 	box-shadow: 8px 8px 20px 1px #030303;
@@ -23,7 +25,7 @@ h1 {
 .card {
 	width: 120px;
 	height: 120px;
-	margin: 5px;
+	margin: 10px;
 	border-radius: 10px;
 	display: inline-block;
 }
@@ -77,25 +79,15 @@ h1 {
 	transform: translate(-50%, -50%);
 }
 
-.winning-content
-.play-again-btn {
-	background-color: #1aab91;
-	color: white;
-	font-weight: bold;
-	border: none;
-	width: 125px;
-	height: 50px;
-	cursor: pointer;
-}
 
 @media screen and (min-width: 320px) and (max-width:414px) { 
 
 .wrapper{
-	width: 276px !important;
+	width: 300px !important;
 }
 	
 .container{
-	width: 276px !important;
+	width: inherit !important;
 	padding: 10px;
 
 }
@@ -103,7 +95,7 @@ h1 {
 .card {
 	width: 62px !important;
 	height: 62px !important;
-	margin: 1px;
+	margin: 4px;
 	border-radius: 10px;
 	display: inline-block;
 }

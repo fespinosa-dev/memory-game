@@ -71,6 +71,9 @@ let Grid = function() {
 		grid.shuffle();
 		numberOfClicks = 0;
 		resetScorePanel();
+		timer.stop();
+		timer.reset();
+		timerEnabled = false;
 	};
 
 	/**
@@ -128,8 +131,8 @@ let Grid = function() {
 					type: "rubberBand"
 				}, [currentFlippedCard, previewsFlippedCard]);
 				if (checkIfAllMatched()) {
-					timer.stop();
-					showWinningPanel(numberOfMoves, remainingStars);
+					let timeTaken = timer.stop();
+					showWinningPanel(numberOfMoves, remainingStars, timeTaken);
 				}
 			} else {
 				$([previewsFlippedCard.back, currentFlippedCard.back]).addClass("mismatch");
@@ -161,11 +164,10 @@ let Grid = function() {
 	 * @return {number} the remaining stars.
 	 */
 	let decreaseStarRating = function() {
-		let remainingStars = $(".fa-star").length;
-		if (remainingStars > 1){
-			$(".stars").children(".fa-star").last().removeClass("fa-star").addClass("fa-star-o");
+		if ($(".fa-star").length > 1){
+			$(".rating").children(".fa-star").last().removeClass("fa-star").addClass("fa-star-o");
 		}
-		return (remainingStars ? remainingStars : 0);
+		return $(".fa-star").length;
 	};
 
 	/**
@@ -283,13 +285,14 @@ let closeWinningPanel = function() {
 
 /**
  * @description displays the winning panel showing the number of moves and stars.
- * @param {number} numberOfMoves - the number of moves to be shown
- * @param {number} stars - the number of stars to be shown
+ * @param {number} numberOfMoves - the number of moves to be shown.
+ * @param {number} stars - the number of stars to be shown.
+ * @param {number} timeTaken - the timeTaken to win the game.
  */
-let showWinningPanel = function(numberOfMoves, stars) {
+let showWinningPanel = function(numberOfMoves, stars, timeTaken) {
 	let winningPanel = document.querySelector(".winning-panel");
 	let scoreDetails = winningPanel.children[0].children[1];
-	scoreDetails.innerHTML = `With ${numberOfMoves} moves and ${stars} Stars`;
+	scoreDetails.innerHTML = `With ${numberOfMoves} moves and ${stars} stars in ${timeTaken}`;
 	winningPanel.style.display = "block";
 };
 
@@ -316,11 +319,13 @@ var Timer = function() {
 	};
 
 	/**
-	 * @description stops the timer.
+	 * @description stops the timer and returns where it stops.
+	 * @return {string} - 00:00 string representation of the time where it stops. 
 	 */
 	this.stop = function() {
-
 		clearInterval(this.interval);
+		let time = `${$("#minutes").html()}:${$("#seconds").html()}`;
+		return time;
 	};
 	/**
 	 * @description resets the timer.
@@ -329,8 +334,9 @@ var Timer = function() {
 		$("#seconds").html("");
 		$("#minutes").html("");
 		clearInterval(this.interval);
-		this.show();
 	};
+
+	
 
 };
 
@@ -342,10 +348,9 @@ grid.fillWithCards(cards);
 
 $(".repeat-btn").click(function() {
 	grid.reset();
-	timer.reset();
 
 });
-$(".play-again-btn").click(function() {
+$(".button-primary").click(function() {
 	grid.reset();
 	closeWinningPanel();
 });
