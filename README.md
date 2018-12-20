@@ -1,6 +1,7 @@
 
 # Memory Matching Game
-A memory game where you need to match pairs of cards.
+A memory game where you need to match pairs of cards. you can see a demo here :
+https://fjevictoriano.github.io/memory-game/index.html
 
 ## Installation
 
