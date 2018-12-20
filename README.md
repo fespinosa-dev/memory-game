@@ -1,7 +1,7 @@
 
 # Memory Matching Game
+
 A memory game where you need to match pairs of cards.
-You can see a demo here: https://fjevictoriano.github.io/memory-game/
 
 ## Installation
 
@@ -30,3 +30,9 @@ When you click on the first card of a turn and have exposed a corresponding card
 ## Star Rating
 
 The game displays a star rating (from 1-3) that reflects your performance. At the beginning of a game, you'll have 3 stars. After a certain numbers of  moves, it will decrease the star rating.
+
+### Demo
+
+<img src="https://raw.githubusercontent.com/fjevictoriano/memory-game/master/memory-game.png" width="500" height="500">
+
+**Live Demo** https://fjevictoriano.github.io/memory-game/
