@@ -1,6 +1,3 @@
----
-permalink: /index.html
----
 
 # Memory Matching Game
 A memory game where you need to match pairs of cards.
